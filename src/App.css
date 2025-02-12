@@ -25,6 +25,34 @@
     display: none;
 }
 
+.stage {
+    font-family: Roboto, sans-serif;
+    font-size: 1.6rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 3.2rem;
+    padding: 2.4rem;
+    margin-top: 2.4rem;
+    border-radius: 3.2rem;
+    border: 1px solid var(--color-accent-2);
+}
+
+.stage__title {
+    font-family: "JejuMyeongjo", serif;
+    font-size: 2.4rem;
+}
+
+.stage__header {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.stage__progressbar-label {
+    line-height: 150%;
+}
+
 @media screen and (width > 768px) {
     .btn {
         padding: 1.6rem 2.4rem;

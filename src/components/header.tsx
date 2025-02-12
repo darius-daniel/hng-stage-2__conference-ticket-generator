@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {useState} from "react";
 import siteLogo from "../assets/images/logo.svg";
 import rightArrow from "../assets/images/right-arrow.svg";
 import topRightArrow from "../assets/images/top-right-arrow.svg";
@@ -8,7 +8,7 @@ export default function Header() {
 
   return <header className="header">
     <a href="/" className="header__logo">
-      <img src={siteLogo} alt="Logo for the website" className="header__logo-img" />
+      <img src={siteLogo} alt="Logo for the website" className="header__logo-img"/>
     </a>
     <nav className="header__nav">
       <ul className="header__nav-links">
@@ -18,11 +18,11 @@ export default function Header() {
       </ul>
     </nav>
     <a href="/my-tickets"
-      className="header__link btn btn-primary"
-      onMouseEnter={() => setArrow(topRightArrow)}
-      onMouseLeave={() => setArrow(rightArrow)}
+       className="header__link btn btn-primary"
+       onMouseEnter={() => setArrow(topRightArrow)}
+       onMouseLeave={() => setArrow(rightArrow)}
     >
-      My Tickets <img src={arrow} alt="Right-pointing arrow" />
+      My Tickets <img src={arrow} alt="Right-pointing arrow"/>
     </a>
   </header>;
 }
