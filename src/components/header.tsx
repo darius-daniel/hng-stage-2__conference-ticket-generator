@@ -18,7 +18,7 @@ export default function Header() {
       </ul>
     </nav>
     <a href="/my-tickets"
-       className="header__link btn btn-primary"
+       className="header__link link link-primary"
        onMouseEnter={() => setArrow(topRightArrow)}
        onMouseLeave={() => setArrow(rightArrow)}
     >

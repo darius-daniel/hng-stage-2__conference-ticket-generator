@@ -1,31 +1,65 @@
-.btn {
+.link {
     display: flex;
     gap: 0.8rem;
     align-items: center;
 
-    border: 0.2rem solid #00000000;
+    border: 0.2rem solid transparent;
     border-radius: 12px;
     text-transform: uppercase;
     padding: 1.2rem 1.6rem;
     width: fit-content;
 }
 
-.btn-primary {
+.link-primary {
     background: var(--color-white);
     color: var(--color-black);
 }
 
-.btn-primary:hover {
+.link-primary:hover {
     background: #24A0B5;
     color: #D9D9D9;
     border: 2px solid #D9D9D9;
+}
+
+.btn {
+    padding: 1.2rem 2.4rem;
+    border-radius: 1.2rem;
+    text-align: center;
+}
+
+.btn-primary {
+    border: none;
+    background: var(--color-secondary);
+    color: var(--color-white);
+}
+
+.btn-primary:hover {
+    background: var(--color-accent-1);
+}
+
+.btn-primary:disabled {
+    background: transparent;
+}
+
+.btn-secondary {
+    background: inherit;
+    color: var(--color-secondary);
+    border: 1px solid var(--color-secondary);
+}
+
+.btn-secondary:hover {
+    background: var(--color-accent-2);
+}
+
+.btn-secondary:disabled {
+    background: transparent;
 }
 
 .header__nav {
     display: none;
 }
 
-.stage {
+.step {
     font-family: Roboto, sans-serif;
     font-size: 1.6rem;
 
@@ -36,21 +70,242 @@
     margin-top: 2.4rem;
     border-radius: 3.2rem;
     border: 1px solid var(--color-accent-2);
+
+    background-color: #08252B;
+
+    position: relative;
 }
 
-.stage__title {
+.step__title {
     font-family: "JejuMyeongjo", serif;
     font-size: 2.4rem;
+    font-weight: 400;
 }
 
-.stage__header {
+.step__header {
     display: flex;
     flex-direction: column;
     gap: 1.2rem;
 }
 
-.stage__progressbar-label {
+.step__progressbar-label {
     line-height: 150%;
+}
+
+.step__body {
+    display: flex;
+    flex-direction: column;
+    gap: 3.2rem;
+}
+
+.event {
+    text-align: center;
+    padding: 1.6rem 2.4rem;
+    border: 2px solid var(--color-accent-2);
+    border-top: none;
+    border-radius: 2.4rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4.8rem;
+
+    background: linear-gradient(0deg, rgba(10, 12, 17, 0.1), rgba(10, 12, 17, 0.1)),
+    radial-gradient(103.64% 57.39% at 14.02% 32.06%, rgba(36, 160, 181, 0.2) 0%, rgba(36, 160, 181, 0) 100%)
+}
+
+.event__header {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+}
+
+.event__title {
+    font-family: "Road Rage", sans-serif;
+    font-size: 4.8rem;
+    line-height: 100%;
+}
+
+.event__description {
+    font-size: 1.4rem;
+    line-height: 150%;
+}
+
+.event__details {
+    line-height: 150%;
+    font-size: 1.6rem;
+}
+
+.form-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 3.2rem;
+}
+
+.form-inputs__heading {
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+    font-weight: 400;
+}
+
+.form-inputs__group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.ticket__levels {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    align-items: flex-start;
+
+    border-radius: 2.4rem;
+    border: 1px solid var(--color-primary-light);
+    background: #052228;
+    padding: 1.6rem;
+}
+
+.ticket__level {
+    border: 2px solid var(--color-accent-1);
+    border-radius: 1.2rem;
+
+    width: 100%;
+    padding: 1.2rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.ticket__level:hover,
+.selected-ticket-level {
+    background: var(--color-accent-2);
+}
+
+.ticket {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.ticket__price {
+    font-weight: 600;
+    font-size: 2.4rem;
+    line-height: 2.64rem;
+}
+
+.ticket_tag {
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+    text-transform: uppercase;
+}
+
+.ticket_stock {
+    font-size: 1.4rem;
+    line-height: 2.1rem;
+}
+
+.form-btns {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+}
+
+.avatar-upload {
+    background: #052228;
+    padding: 2.4rem 2.4rem 4.8rem;
+    gap: 3.2rem;
+    border-radius: 2.4rem;
+    border: 1px solid var(--color-primary-light);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    position: relative;
+}
+
+#uploader {
+    width: 24rem;
+    height: 24rem;
+    margin: auto;
+
+    background: transparent;
+    content-visibility: hidden;
+    z-index: 20;
+}
+
+.uploader-container {
+    position: relative;
+    align-self: center;
+}
+
+.uploader-overlay {
+    position: absolute;
+    top: 0;
+
+    width: 24rem;
+    height: 24rem;
+    padding: 3.2rem;
+    border-radius: 3.2rem;
+    border: 0.4rem solid #24A0B580;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+
+    font-weight: 400;
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+    text-align: center;
+
+    background: var(--color-accent-2);
+}
+
+.overlay__text {
+    max-width: 19.2rem;
+    margin: auto;
+}
+
+.transparent-backdrop {
+   display: none;
+}
+
+.text-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 3.2rem;
+
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+    font-weight: 400;
+}
+
+.text-input__label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    position: relative
+}
+
+.text-input {
+    background: inherit;
+    border: 1px solid var(--color-primary-light);
+    border-radius: 1.2rem;
+    padding: 1.2rem;
+    outline: none;
+
+    color: var(--color-white);
+}
+
+.text-input__image {
+    position: absolute;
+    left: 1.2rem;
+    top: 4rem;
 }
 
 @media screen and (width > 768px) {
@@ -77,5 +332,46 @@
     .header__nav-link:hover,
     .header__nav-link--active {
         color: var(--color-white);
+    }
+
+    .step {
+        max-width: 70rem;
+        margin: calc(8rem - 3.4rem) auto;
+        border-radius: 4rem;
+        padding: 4.8rem;
+        gap: 3.2rem;
+    }
+
+    .event__description {
+        max-width: 34rem;
+        margin: auto;
+    }
+
+    .ticket__levels {
+        flex-direction: row;
+        gap: 0.8rem;
+    }
+
+    .form-btns {
+        flex-direction: row-reverse;
+        justify-content: center;
+    }
+
+    .btn-primary, .btn-secondary {
+        flex-grow: 1;
+    }
+
+    .transparent-backdrop {
+        content: " ";
+        width: calc(100% - 2.4rem - 2.4rem);
+        height: 20rem;
+        margin: auto;
+
+        background: #00000033;
+
+        position: absolute;
+        top: 10rem;
+        left: 2.4rem;
+        display: block;
     }
 }

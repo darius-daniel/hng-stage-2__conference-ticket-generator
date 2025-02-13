@@ -1,30 +1,43 @@
 import Step1 from "./step-1.tsx";
 import Step2 from "./step-2.tsx";
 import {useEffect, useState} from "react";
+import {FormData} from "../../lib/definitions.ts";
 
 export default function MultiStepForm() {
-    const [step, setStep] = useState(1);
-    const [ticketType, setTicketType] = useState("free");
+  const [step, setStep] = useState(1);
 
-    const [formStep, setFormStep] = useState(
-      <Step1
-        step={{value: step, setValue: setStep}}
-        ticketType={{value: ticketType, setValue: setTicketType}}
-      />
-    );
+  const [formData, setFormData] =
+    useState<FormData>({
+      ticketType: "free",
+      ticketQty: 1,
+      name: "",
+      email: "",
+      specialRequest: "",
+    });
 
-    useEffect(() => {
-        if (step === 1) {
-            setFormStep(<Step1
-              step={{value: step, setValue: setStep}}
-              ticketType={{value: ticketType, setValue: setTicketType}}
-            />);
-        } else if (step === 2) {
-            setFormStep(<Step2 step={{value: step, setValue: setStep}} />)
-        }
-    }, [step, ticketType]);
+  const [formStep, setFormStep] = useState(
+    <Step1
+      formData={{values: formData, setValues: setFormData}}
+      stepData={{value: step, setValue: setStep}}
+    />
+  );
 
-    return <form action="">
-        {formStep}
-    </form>
+  useEffect(() => {
+    if (step === 1) {
+      setFormStep(<Step1
+        formData={{values: formData, setValues: setFormData}}
+        stepData={{value: step, setValue: setStep}}
+      />);
+    } else if (step === 2) {
+      setFormStep(
+        <Step2
+          stepData={{value: step, setValue: setStep}}
+          formData={{values: formData, setValues: setFormData}}
+        />)
+    }
+  }, [step, formData]);
+
+  return <form action="" encType="multipart/form-data">
+    {formStep}
+  </form>
 }

@@ -1,20 +1,19 @@
 import StepHeader from "./step-header.tsx";
-import { Dispatch, SetStateAction } from "react";
+import { FormProps } from "../../lib/definitions.ts";
 
-interface Props {
-  step: {
-    value: number;
-    setValue: Dispatch<SetStateAction<number>>;
-  };
-  ticketType: {
-    value: string;
-    setValue: Dispatch<SetStateAction<string>>
+export default function Step1({formData, stepData}: FormProps) {
+  const {ticketType } = formData.values;
+
+  function handleTicketTypeChange (newTicketType: "free" | "vip" | "vvip") {
+    formData.setValues((prev) => ({...prev, ticketType: newTicketType}))
   }
-}
 
-export default function Step1({step, ticketType}: Props) {
+  function handleTicketQtyChange (newQty: string) {
+    formData.setValues((prev) => ({...prev, ticketQty: parseInt(newQty)}))
+  }
+
   return (<section className="step step-1">
-    <StepHeader stepTitle="Ticket Selection" stepNumber={step.value}/>
+    <StepHeader stepTitle="Ticket Selection" stepNumber={stepData.value}/>
 
     <div className="step__body">
       <div className="event">
@@ -37,11 +36,11 @@ export default function Step1({step, ticketType}: Props) {
           <h3 className="form-inputs__heading">Select Ticket Type:</h3>
           <div className="ticket__levels">
             <span
-              className={ticketType.value === "free"
+              className={ticketType === "free"
                 ? "ticket__level ticket__level-1 selected-ticket-level"
                 : "ticket__level ticket__level-1"
               }
-              onClick={() => ticketType.setValue("free")}
+              onClick={() => handleTicketTypeChange("free")}
             >
               <h4 className="ticket__price">Free</h4>
               <p className="ticket__tag">REGULAR ACCESS</p>
@@ -49,11 +48,11 @@ export default function Step1({step, ticketType}: Props) {
             </span>
 
             <span
-              className={ticketType.value === "vip"
+              className={ticketType === "vip"
                 ? "ticket__level ticket__level-1 selected-ticket-level"
                 : "ticket__level ticket__level-1"
               }
-              onClick={() => ticketType.setValue("vip")}
+              onClick={() => handleTicketTypeChange("vip")}
             >
               <h4 className="ticket__price">$50</h4>
               <p className="ticket__tag">VIP ACCESS</p>
@@ -61,11 +60,11 @@ export default function Step1({step, ticketType}: Props) {
             </span>
 
             <span
-              className={ticketType.value === "vvip"
+              className={ticketType === "vvip"
                 ? "ticket__level ticket__level-1 selected-ticket-level"
                 : "ticket__level ticket__level-1"
               }
-              onClick={() => ticketType.setValue("vvip")}
+              onClick={() => handleTicketTypeChange("vvip")}
             >
               <h4 className="ticket__price">$150</h4>
               <p className="ticket__tag">VVIP ACCESS</p>
@@ -77,7 +76,13 @@ export default function Step1({step, ticketType}: Props) {
         <div className="form-inputs__group ticket_qty">
           <h3 className="form-inputs__heading">Number of Tickets</h3>
           <div className="custom-select">
-            <select name="purchase-qty" id="ticket-purchase-qty" defaultValue={1}>
+            <select
+              name="purchase-qty"
+              id="ticket-purchase-qty"
+              defaultValue={1}
+              onChange={(event) => handleTicketQtyChange(event.target.value)}
+              required
+            >
               <option value={1}>1</option>
               <option value={2}>2</option>
               <option value={3}>3</option>
@@ -92,13 +97,15 @@ export default function Step1({step, ticketType}: Props) {
             type="button"
             value="Next"
             className="btn btn-primary"
-            onClick={() => step.setValue((prev: number) => prev + 1)}
+            onClick={() => stepData.setValue((prev: number) => prev + 1)}
+            disabled={!ticketType}
           />
           <input
             type="button"
             value="Cancel"
             className="btn btn-secondary"
-            onClick={() => step.setValue((prev: number) => prev - 1)}
+            onClick={() => stepData.setValue((prev: number) => prev - 1)}
+            disabled={stepData.value === 1}
           />
         </div>
       </div>
