@@ -6,9 +6,13 @@ interface Props {
     value: number;
     setValue: Dispatch<SetStateAction<number>>;
   };
+  ticketType: {
+    value: string;
+    setValue: Dispatch<SetStateAction<string>>
+  }
 }
 
-export default function Step1({step}: Props) {
+export default function Step1({step, ticketType}: Props) {
   return (<section className="step step-1">
     <StepHeader stepTitle="Ticket Selection" stepNumber={step.value}/>
 
@@ -32,19 +36,37 @@ export default function Step1({step}: Props) {
         <div className="form-inputs__group tickets">
           <h3 className="form-inputs__heading">Select Ticket Type:</h3>
           <div className="ticket__levels">
-            <span className="ticket__level ticket__level-1">
+            <span
+              className={ticketType.value === "free"
+                ? "ticket__level ticket__level-1 selected-ticket-level"
+                : "ticket__level ticket__level-1"
+              }
+              onClick={() => ticketType.setValue("free")}
+            >
               <h4 className="ticket__price">Free</h4>
               <p className="ticket__tag">REGULAR ACCESS</p>
               <p className="ticket__stock">20/52</p>
             </span>
 
-            <span className="ticket__level ticket__level-2">
-              <h4 className="ticket__price">$150</h4>
+            <span
+              className={ticketType.value === "vip"
+                ? "ticket__level ticket__level-1 selected-ticket-level"
+                : "ticket__level ticket__level-1"
+              }
+              onClick={() => ticketType.setValue("vip")}
+            >
+              <h4 className="ticket__price">$50</h4>
               <p className="ticket__tag">VIP ACCESS</p>
               <p className="ticket__stock">20/52</p>
             </span>
 
-            <span className='ticket__level ticket__level-3'>
+            <span
+              className={ticketType.value === "vvip"
+                ? "ticket__level ticket__level-1 selected-ticket-level"
+                : "ticket__level ticket__level-1"
+              }
+              onClick={() => ticketType.setValue("vvip")}
+            >
               <h4 className="ticket__price">$150</h4>
               <p className="ticket__tag">VVIP ACCESS</p>
               <p className="ticket__stock">20/52</p>
