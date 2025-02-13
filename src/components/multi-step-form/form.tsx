@@ -4,6 +4,7 @@ import {useEffect, useState} from "react";
 
 export default function MultiStepForm() {
     const [step, setStep] = useState(1);
+
     const [formStep, setFormStep] = useState(<Step1 step={{value: step, setValue: setStep}}/>);
 
     useEffect(() => {
