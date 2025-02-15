@@ -165,9 +165,15 @@ option:hover {
 
 input[type="button"] {
   /*color: inherit;*/
-  font-size: inherit;
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+  font-family: "JejuMyeongjo", serif;
 }
 
 input[type="email"] {
   padding-left: 4.8rem
+}
+
+input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
+  background: inherit;
 }
