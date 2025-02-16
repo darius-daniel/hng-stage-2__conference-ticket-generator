@@ -18,7 +18,7 @@ export default function Step2({ stepData, formData }: PurchaseFormProps) {
           ...prev,
           avatar: uploadedFile.url,
         }));
-        await updateFormData("avatar", formData.values.avatar);
+        await updateFormData("formData", {...formData.values});
       } catch (error: any) {
         setAvatarError(
           error.message || "Error uploading image. Please try again.",
@@ -80,7 +80,7 @@ export default function Step2({ stepData, formData }: PurchaseFormProps) {
                   ...prev,
                   name: event.target.value,
                 }));
-                await updateFormData("name", formData.values.name);
+                await updateFormData("formData", {...formData.values});
               }}
             />
           </label>
@@ -103,7 +103,7 @@ export default function Step2({ stepData, formData }: PurchaseFormProps) {
                   ...prev,
                   email: event.target.value,
                 }));
-                await updateFormData("email", formData.values.email);
+                await updateFormData("formData", {...formData.values});
               }}
             />
           </label>
@@ -119,7 +119,7 @@ export default function Step2({ stepData, formData }: PurchaseFormProps) {
                   ...prev,
                   specialRequest: event.target.value,
                 }));
-                await updateFormData("ticketQty", formData.values.specialRequest);
+                await updateFormData("formData", {...formData.values});
               }}
             />
           </label>
@@ -130,7 +130,6 @@ export default function Step2({ stepData, formData }: PurchaseFormProps) {
             type="submit"
             value={`Get My ${formData.values.ticketType.toUpperCase()} Ticket`}
             className="btn btn-primary"
-            onClick={() => stepData.setValue(3)}
           />
           <input
             type="button"

@@ -19,7 +19,7 @@ export default function MultiStepForm() {
 
   useEffect(() => {
     async function fetchData() {
-      const savedData = await fetchFormData('userForm');
+      const savedData = await fetchFormData('formData');
       console.log("Saved Data:", savedData)
       if (savedData) {
         setFormData(savedData);
@@ -59,7 +59,7 @@ export default function MultiStepForm() {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setStep((prev) => prev + 1)
+    setStep(3)
   }
 
   return <form action="" encType="multipart/form-data" onSubmit={handleSubmit}>

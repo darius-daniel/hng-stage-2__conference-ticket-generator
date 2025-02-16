@@ -24,10 +24,12 @@ export default function Step1({ formData, stepData }: PurchaseFormProps) {
 
   function handleTicketTypeChange(newTicketType: string) {
     formData.setValues((prev) => ({ ...prev, ticketType: newTicketType }));
+    (async () => await updateFormData("formData", {...formData.values}))();
   }
 
   function handleTicketQtyChange(newQty: string) {
     formData.setValues((prev) => ({ ...prev, ticketQty: parseInt(newQty) }));
+    (async () => await updateFormData("formData", {...formData.values}))();
   }
 
   return (
@@ -61,7 +63,7 @@ export default function Step1({ formData, stepData }: PurchaseFormProps) {
                   className={`ticket__level ticket__level-${ticket.id} ${ticketType === ticket.id ? "ticket__level--selected" : ""}`}
                   onClick={() => {
                     handleTicketTypeChange(ticket.id);
-                    (async () => await updateFormData("ticketType", ticket.id))()
+                    (async () => await updateFormData("formData", {...formData.values}))();
                   }}
                   role="radio"
                   aria-checked={ticketType === ticket.id}
@@ -83,7 +85,7 @@ export default function Step1({ formData, stepData }: PurchaseFormProps) {
                 defaultValue={1}
                 onChange={(event) => {
                   handleTicketQtyChange(event.target.value);
-                  (async () => await updateFormData("ticketQty", formData.values.ticketQty))();
+                  (async () => await updateFormData("formData", {...formData.values}))();
                 }}
                 required
               >

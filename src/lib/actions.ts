@@ -1,4 +1,5 @@
 import {openDB} from 'idb';
+import {PurchaseFormData} from "./definitions.ts";
 
 export async function uploadImage(
   file: File,
@@ -58,7 +59,7 @@ export async function initDB() {
 }
 
 // Save form data
-export async function updateFormData(key: string, data: string | number | null | undefined) {
+export async function updateFormData(key: string, data: PurchaseFormData) {
   const db = await initDB();
   await db.put(STORE_NAME, data, key);
 }
