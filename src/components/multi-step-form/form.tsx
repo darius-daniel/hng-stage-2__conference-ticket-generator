@@ -20,7 +20,6 @@ export default function MultiStepForm() {
   useEffect(() => {
     async function fetchData() {
       const savedData = await fetchFormData('formData');
-      console.log("Saved Data:", savedData)
       if (savedData) {
         setFormData(savedData);
       }

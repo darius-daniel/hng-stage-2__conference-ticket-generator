@@ -14,12 +14,11 @@ export default function Step2({ stepData, formData }: PurchaseFormProps) {
       const file = e.target.files[0];
       try {
         const uploadedFile = await uploadImage(file);
-        console.log("URL: ", uploadedFile.url);
         formData.setValues((prev) => ({
           ...prev,
           avatar: uploadedFile.url,
         }));
-        await updateFormData("formData", {...formData.values});
+        await updateFormData("formData", {...formData.values, avatar: uploadedFile.url });
       } catch (error: any) {
         setAvatarError(
           error.message || "Error uploading image. Please try again.",
