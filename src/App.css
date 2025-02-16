@@ -356,14 +356,20 @@
 }
 
 .ticket-container {
-    max-width: 36rem;
+    width: 30rem;
     height: 60rem;
     margin: auto;
-    background: #02191d url("./assets/images/ticket-bg.svg") no-repeat fixed
-        center center;
-    background-size: cover;
-    object-fit: fill;
-    border: 2px solid #24a0b5;
+    background: linear-gradient(0deg, #072c31, #072c31),
+        radial-gradient(
+            50% 13.92% at 50% 0%,
+            rgba(36, 160, 181, 0.5) 0%,
+            rgba(36, 160, 181, 0) 100%
+        ),
+        radial-gradient(
+            50% 36.17% at 50% 103.25%,
+            rgba(36, 160, 181, 0.5) 0%,
+            rgba(36, 160, 181, 0) 100%
+        )
 }
 
 .ticket {
@@ -371,7 +377,7 @@
     flex-direction: column;
     align-items: center;
     gap: 2rem;
-    width: 26rem;
+    max-width: 26rem;
     height: 44.6rem;
     padding: 1.4rem;
     border: 1px solid #24a0b5;
@@ -399,6 +405,13 @@
     padding: 0.4rem;
     /*gap: 0.4rem;*/
     background: #08343c;
+}
+
+.ticket__barcode {
+    width: 100%;
+    height: 5rem;
+    border-radius: 0.8rem;
+    padding: 4rem;
 }
 
 .detail__tag {

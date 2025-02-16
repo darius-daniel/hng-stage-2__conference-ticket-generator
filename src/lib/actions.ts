@@ -1,29 +1,4 @@
-"use server";
-
-import { openDB } from "idb";
-
-const dbPromise = openDB("ticketPurchaseForm", 1, {
-  upgrade(db) {
-    db.createObjectStore("formData");
-    db.createObjectStore("avatar");
-  },
-});
-
-export async function setPurchaseFormData(key: string, value: string | number) {
-  return (await dbPromise).put("formData", value, key);
-}
-
-export async function getPurchaseFormData(key: string) {
-  return (await dbPromise).get("formData", key);
-}
-
-export async function setAvatar(imageFile: File) {
-  return (await dbPromise).put("avatar", imageFile, "userAvatar");
-}
-
-export async function getAvatar() {
-  return (await dbPromise).get("avatar", "userAvatar");
-}
+import {openDB} from 'idb';
 
 export async function uploadImage(
   file: File,
@@ -62,8 +37,40 @@ export async function uploadImage(
     const thumbnailUrl = data.eager ? data.eager[0].secure_url : null;
 
     return { url, thumbnailUrl };
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error uploading the file:", error);
-    throw error; // Re-throw for handling in calling function
+    throw error;
   }
+}
+
+const DB_NAME = 'formDB';
+const STORE_NAME = 'formData';
+
+// Initialize the database
+export async function initDB() {
+  return openDB(DB_NAME, 1, {
+    upgrade(db) {
+      if (!db.objectStoreNames.contains(STORE_NAME)) {
+        db.createObjectStore(STORE_NAME);
+      }
+    },
+  });
+}
+
+// Save form data
+export async function updateFormData(key: string, data: string | number | null | undefined) {
+  const db = await initDB();
+  await db.put(STORE_NAME, data, key);
+}
+
+// Retrieve form data
+export async function fetchFormData(key: string) {
+  const db = await initDB();
+  return db.get(STORE_NAME, key);
+}
+
+// Clear the form data
+export async function clearFormData() {
+  const db = await initDB();
+  await db.clear(STORE_NAME);
 }

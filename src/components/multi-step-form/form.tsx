@@ -2,12 +2,13 @@ import Step1 from "./step-1.tsx";
 import Step2 from "./step-2.tsx";
 import Step3 from "./step-3.tsx";
 import {FormEvent, useEffect, useState} from "react";
-import { FormData } from "../../lib/definitions.ts";
+import { PurchaseFormData } from "../../lib/definitions.ts";
+import {fetchFormData} from "../../lib/actions.ts";
 
 export default function MultiStepForm() {
 
   const [step, setStep] = useState(1);
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<PurchaseFormData>({
     ticketType: "free",
     ticketQty: 1,
     name: "",
@@ -15,6 +16,17 @@ export default function MultiStepForm() {
     specialRequest: "",
     avatar: null,
   });
+
+  useEffect(() => {
+    async function fetchData() {
+      const savedData = await fetchFormData('userForm');
+      console.log("Saved Data:", savedData)
+      if (savedData) {
+        setFormData(savedData);
+      }
+    }
+    fetchData();
+  }, []);
 
   const [formStep, setFormStep] = useState(
     <Step1

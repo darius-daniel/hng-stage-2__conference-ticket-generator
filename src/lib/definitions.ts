@@ -1,9 +1,9 @@
 import { Dispatch, SetStateAction } from "react";
 
-export interface FormProps {
+export interface PurchaseFormProps {
   formData: {
-    values: FormData;
-    setValues: Dispatch<SetStateAction<FormData>>;
+    values: PurchaseFormData;
+    setValues: Dispatch<SetStateAction<PurchaseFormData>>;
   };
   stepData: {
     value: number;
@@ -11,13 +11,13 @@ export interface FormProps {
   };
 }
 
-export type FormData = {
+export type PurchaseFormData = {
   ticketType: string;
   ticketQty: number;
   name: string;
   email: string;
   specialRequest?: string;
-  avatar: File | null;
+  avatar: string | null;
 };
 
 export interface TicketType {

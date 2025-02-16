@@ -1,7 +1,8 @@
 import StepHeader from "./step-header.tsx";
-import { FormProps, TicketType } from "../../lib/definitions.ts";
+import { PurchaseFormProps, TicketType } from "../../lib/definitions.ts";
+import {updateFormData} from "../../lib/actions.ts";
 
-export default function Step1({ formData, stepData }: FormProps) {
+export default function Step1({ formData, stepData }: PurchaseFormProps) {
   const { ticketType } = formData.values;
   const tickets: TicketType[] = [
     {
@@ -58,7 +59,10 @@ export default function Step1({ formData, stepData }: FormProps) {
                 <span
                   key={ticket.id}
                   className={`ticket__level ticket__level-${ticket.id} ${ticketType === ticket.id ? "ticket__level--selected" : ""}`}
-                  onClick={() => handleTicketTypeChange(ticket.id)}
+                  onClick={() => {
+                    handleTicketTypeChange(ticket.id);
+                    (async () => await updateFormData("ticketType", ticket.id))()
+                  }}
                   role="radio"
                   aria-checked={ticketType === ticket.id}
                 >
@@ -77,7 +81,10 @@ export default function Step1({ formData, stepData }: FormProps) {
                 name="purchase-qty"
                 id="ticket-purchase-qty"
                 defaultValue={1}
-                onChange={(event) => handleTicketQtyChange(event.target.value)}
+                onChange={(event) => {
+                  handleTicketQtyChange(event.target.value);
+                  (async () => await updateFormData("ticketQty", formData.values.ticketQty))();
+                }}
                 required
               >
                 <option value={1}>1</option>
@@ -101,7 +108,7 @@ export default function Step1({ formData, stepData }: FormProps) {
               type="button"
               value="Cancel"
               className="btn btn-secondary"
-              onClick={() => stepData.setValue((prev: number) => prev - 1)}
+              onClick={() => {}}
               disabled={stepData.value === 1}
             />
           </div>

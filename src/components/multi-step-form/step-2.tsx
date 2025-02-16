@@ -1,21 +1,24 @@
 import StepHeader from "./step-header.tsx";
 import cloudDownloads from "../../assets/images/cloud-download.svg";
 import envelope from "../../assets/images/envelope.svg";
-import { FormProps } from "../../lib/definitions.ts";
+import { PurchaseFormProps } from "../../lib/definitions.ts";
 import { ChangeEvent, useState } from "react";
-import { uploadImage } from "../../lib/actions.ts";
+import {clearFormData, updateFormData, uploadImage} from "../../lib/actions.ts";
 
-export default function Step2({ stepData, formData }: FormProps) {
-  const [avatar, setAvatar] = useState<string | undefined>();
+export default function Step2({ stepData, formData }: PurchaseFormProps) {
   const [avatarError, setAvatarError] = useState<string | null>(null);
 
   const handleAvatarChange = async (e: ChangeEvent<HTMLInputElement>) => {
-    setAvatarError(null); // Clear previous errors
+    setAvatarError(null);
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
       try {
         const uploadedFile = await uploadImage(file);
-        setAvatar(uploadedFile.url); // Update state with the URL
+        formData.setValues((prev) => ({
+          ...prev,
+          avatar: uploadedFile.url,
+        }));
+        await updateFormData("avatar", formData.values.avatar);
       } catch (error: any) {
         setAvatarError(
           error.message || "Error uploading image. Please try again.",
@@ -36,9 +39,9 @@ export default function Step2({ stepData, formData }: FormProps) {
 
           <div className="uploader-container">
             <div className="uploader-overlay">
-              {avatar ? (
+              {formData.values.avatar ? (
                 <img
-                  src={avatar}
+                  src={formData.values.avatar}
                   alt="Uploaded Avatar"
                   className="uploaded-avatar"
                 />
@@ -72,11 +75,12 @@ export default function Step2({ stepData, formData }: FormProps) {
               id="username"
               className="text-input"
               required
-              onChange={(event) => {
+              onChange={async (event) => {
                 formData.setValues((prev) => ({
                   ...prev,
                   name: event.target.value,
                 }));
+                await updateFormData("name", formData.values.name);
               }}
             />
           </label>
@@ -94,11 +98,12 @@ export default function Step2({ stepData, formData }: FormProps) {
               id="email"
               className="text-input"
               required
-              onChange={(event) => {
+              onChange={async (event) => {
                 formData.setValues((prev) => ({
                   ...prev,
                   email: event.target.value,
                 }));
+                await updateFormData("email", formData.values.email);
               }}
             />
           </label>
@@ -109,11 +114,12 @@ export default function Step2({ stepData, formData }: FormProps) {
               name="special-request"
               id="special-request"
               className="text-input"
-              onChange={(event) => {
+              onChange={async (event) => {
                 formData.setValues((prev) => ({
                   ...prev,
                   specialRequest: event.target.value,
                 }));
+                await updateFormData("ticketQty", formData.values.specialRequest);
               }}
             />
           </label>
@@ -124,13 +130,16 @@ export default function Step2({ stepData, formData }: FormProps) {
             type="submit"
             value={`Get My ${formData.values.ticketType.toUpperCase()} Ticket`}
             className="btn btn-primary"
-            onClick={() => stepData.setValue((prev: number) => prev + 1)}
+            onClick={() => stepData.setValue(3)}
           />
           <input
             type="button"
             value="Back"
             className="btn btn-secondary"
-            onClick={() => stepData.setValue((prev: number) => prev - 1)}
+            onClick={async () => {
+              stepData.setValue(1);
+              await clearFormData();
+            }}
           />
         </div>
       </div>
