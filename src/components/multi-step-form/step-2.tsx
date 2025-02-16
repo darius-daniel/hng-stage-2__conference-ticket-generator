@@ -14,6 +14,7 @@ export default function Step2({ stepData, formData }: PurchaseFormProps) {
       const file = e.target.files[0];
       try {
         const uploadedFile = await uploadImage(file);
+        console.log("URL: ", uploadedFile.url);
         formData.setValues((prev) => ({
           ...prev,
           avatar: uploadedFile.url,
@@ -82,6 +83,7 @@ export default function Step2({ stepData, formData }: PurchaseFormProps) {
                 }));
                 await updateFormData("formData", {...formData.values});
               }}
+              value={formData.values.name}
             />
           </label>
 
@@ -105,6 +107,7 @@ export default function Step2({ stepData, formData }: PurchaseFormProps) {
                 }));
                 await updateFormData("formData", {...formData.values});
               }}
+              value={formData.values.email}
             />
           </label>
 
@@ -121,6 +124,7 @@ export default function Step2({ stepData, formData }: PurchaseFormProps) {
                 }));
                 await updateFormData("formData", {...formData.values});
               }}
+              value={formData.values.specialRequest}
             />
           </label>
         </div>
@@ -136,8 +140,8 @@ export default function Step2({ stepData, formData }: PurchaseFormProps) {
             value="Back"
             className="btn btn-secondary"
             onClick={async () => {
-              stepData.setValue(1);
               await clearFormData();
+              stepData.setValue(1);
             }}
           />
         </div>
